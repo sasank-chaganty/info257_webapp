@@ -9,10 +9,19 @@ conn = sqlite3.connect(DATABASE_FILE)
 
 all_college_columns = ["Name", "City", "State", "Student_Population", "Safety_Score", 
 "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
-"Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "SAT_Lower_Range", 
-"SAT_Upper_Range", "Yield_Rate"]
+"Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score", "Yield_Rate"]
 
-university_columns = ["Name", "Region_ID", "City", "State", "Student_Population", "Safety_Score", "Size"]
+col_aliases = ["u.Name", "u.City", "u.Student_Population", "u.Safety_Score", 
+"u.Size", "l.State","l.Region_Name", "l.Fall_Weather", "l.Spring_Weather", "e.Percent_Employed", "e.Median_Earnings",
+"c.Tuition_Cost", "c.Boarding_Cost", "c.Book_Cost", "a.Acceptance_Rate", "a.Average_SAT_Score", "a.Yield_Rate"]
+
+table_aliases = {"university": "university as u", "employment": "employment as e", 
+"admissions" : "admissions as a", "location":"location as l", "cost": "cost as c"}
+
+joins_to_university = {"location": "u.University_ID = l.University_ID", "admissions": "u.University_ID = a.University_ID",
+"cost": "u.University_ID = c.University_ID", "employment": "u.University_ID = e.University_ID"}
+
+university_columns = ["Name", "Region_ID", "City", "Student_Population", "Safety_Score", "Size"]
 employment_columns = ["Name", "Percent_Employed", "Median_Earnings"]
 cost_columns = ["Name", "Tuition_Cost", "Boarding_Cost", "Book_Cost"]
 admissions_columns = ["Name", "Acceptance_Rate", "SAT_Lower_Range", "SAT_Upper_Range", "Yield_Rate"]
@@ -68,38 +77,88 @@ def main_page():
 @app.route("/results", methods = ["GET", "POST"])
 def results():
     if request.method == "GET":
-        return render_template("index.html")
+        return redirect(url_for('main_page'))
 
-    query = "SELECT * FROM university;"
-    #query = "SELECT Percent_Employed FROM employment;"
+    query, selected_columns = build_query_plan()
     entries = fetchall(query)
-    if entries:
-        is_empty = False
-    else:
-        is_empty = True
+    is_empty = entries == None:
 
-    return render_template("results.html", columns = university_columns, rows = entries, empty = is_empty)
+    return render_template("results.html", columns = selected_columns, rows = entries, empty = is_empty)
 
-@app.route('/university', methods = ["POST"])
+@app.route('/university', methods = ["GET", "POST"])
 def view_college():
-    college = request.form["university"]
-    print(college)
-    all_college_columns = ["u.Name", "u.City", "u.Student_Population", "u.Safety_Score", 
-    "u.Size", "l.State","l.Region_Name", "l.Fall_Weather", "l.Spring_Weather", "e.Percent_Employed", "e.Median_Earnings",
-    "c.Tuition_Cost", "c.Boarding_Cost", "c.Book_Cost", "a.Acceptance_Rate", "a.SAT_Lower_Range", 
-    "a.SAT_Upper_Range", "a.Yield_Rate"]
+    if request.method == "GET":
+        return redirect(url_for('main_page'))
 
-    ac = ["Name", "City", "Student_Population", "Safety_Score", "Size", "State","Region_Name", "Fall_Weather", 
-    "Spring_Weather", "Percent_Employed", "Median_Earnings", "Tuition_Cost", "Boarding_Cost", 
-    "Book_Cost", "Acceptance_Rate", "SAT_Lower_Range", "SAT_Upper_Range", "Yield_Rate"]
-
-    selection_columns = ', '.join(all_college_columns)
-    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
-    "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
-    "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
+    response = request.form["university"]
+    if response == "All Universities":
+        query = get_master_query()
+        entity = "All Universities" 
+    else:
+        query = get_master_query(response)
+        entity = response
 
     entry = fetchone(query)
-    return render_template("college.html", university = college, columns = ac, row = entry)
+    return render_template("college.html", university = entity, columns = all_college_columns, row = entry)
+
+
+def get_master_query(college=None):
+    if not college:
+        selection_columns = ', '.join(aliases)
+        query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
+    else:
+        selection_columns = ', '.join(aliases)
+        query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
+
+        return query, all_college_columns
+
+
+def build_query_plan():
+    selected_columns = []
+    query_columns = []
+    tables_involved = set()
+    form_fields = ["Name", "City", "State", "Student_Population", "Safety_Score", 
+    "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
+    "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score"]
+    for item in form_fields:
+        if request.form[item]:
+            selection_columns.append(item)
+            new_table, query_col = find_table(item)
+            tables_involved.add(new_table)
+            query_columns.append(query_col)
+
+    query_columns = ', '.join(query_columns)
+    
+    query_table_aliases = [table_aliases[table] for table in tables_involved]
+    query_table_aliases = ', '.join(query_table_aliases)
+
+    joins = [joins_to_university[table] for table in tables_involved]
+    joins = ' AND '.join(joins)
+
+    conditions = [condition_lookup(cond) for  ]
+    mastery_query = "SELECT " + query_columns + " FROM " + table_aliases + " WHERE " + joins + "AND " + conditions + ";"
+
+    return mastery_query, selected_columns
+
+
+def find_table(item):
+    if item in university_columns:
+        return "university", "u." + item
+    elif item in employment_columns:
+        return "employment", "e." + item
+    elif item in cost_columns:
+        return "cost", "c." + item
+    elif item in admissions_columns:
+        return "admissions", "a." + item
+    elif item in location_columns:
+        return "location", "l." + item
+    else:
+        raise Exception()
+
 
 if __name__ == "__main__":
     app.run()

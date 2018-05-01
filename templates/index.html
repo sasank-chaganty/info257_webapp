@@ -7,7 +7,7 @@
     </head>
     <body>
     	<fieldset>
-    	<legend>View University Info:</legend>
+    	<legend>View University Info</legend>
     	<form action="/university" method="POST">
 			<select name="university">
 				{% for university in uni_list %}
@@ -18,32 +18,102 @@
 		</form>
 		</fieldset>
 
+		<p> </p>
+
 		<fieldset>
-		<legend>Search For University:</legend>
+		<legend>Search For Universities</legend>
 		<form action="/results" method="POST">
+			City:
 			<select name="City">
+				<option value="">Any City</option>
 				{% for city in city_list %}
 				<option value={{ city }}> {{ city }}</option>
 				{% endfor%} 
 			</select>
 
+			State:
 			<select name="State">
+				<option value="">Any State</option>
 				{% for state in state_list %}
 				<option value={{ state }}> {{ state }}</option>
 				{% endfor%}
 			</select>
 
-			<select name="Region">
+			Region:
+			<select name="Region_Name">
+				<option value="">Any Region</option>
 				{% for region in region_list %}
 				<option value={{ region }}> {{ region }}</option>
 				{% endfor%} 
 			</select>
+			<br>
+			<p></p>
 
-			<select name="Safety Score">
+			Safety Score Better Than:
+			<select name="Safety_Score">
+				<option value="">Any Score</option>
 				{% for score in scores %}
 				<option value={{ score }}> {{ score }}</option>
 				{% endfor%} 
 			</select>
+			<br>
+			<p></p>
+
+			Campus Size (Acres) Greater Than :
+			<input type="number" name="Size" value="" min=1 max=1000000>
+			<br>
+			<p></p>
+
+			Fall Weather (F) Less Than :
+			<input type="number" name="Fall_Weather" value="" min=-50 max=212>
+			<br>
+			<p></p>
+
+			Spring Weather (F) Greater Than :
+			<input type="number" name="Spring_Weather" value="" min=-50 max=212> 
+			<br>
+			<p></p>
+
+			Size of Student Population Less Than :
+			<input type="number" name="Student_Population" value="" min=1 max=50000>
+			<br>
+			<p></p>
+
+			Combined SAT Score Less Than :
+			<input type="number" name="Average_SAT_score" value="" min=0 max=1600>
+			<br>
+			<p></p>
+
+			Acceptance Rate (%) Greater Than :
+			<input type="number" name="Acceptance_Rate" value="" min=0 max=100>
+			<br>
+			<p></p>
+
+			Tuition Cost ($) Less Than :
+			<input type="number" name="Tuition_Cost" value="" min=0 max=1000000>
+			<br>
+			<p></p>
+
+			Boarding Cost ($) Less Than :
+			<input type="number" name="Boarding_Cost" value="" min=0 max=1000000>
+			<br>
+			<p></p>
+
+			Cost of Textbooks and Supplies ($) Less Than :
+			<input type="number" name="Book_Cost" value="" min=0 max=1000000>
+			<br>
+			<p></p>
+
+			Employment Rate 2 Years After Graduation (%) Greater Than :
+			<input type="number" name="Percent_Employed" value="" min=0 max=100>
+			<br>
+			<p></p>
+
+			Median Earnings 2 Years After Graduation ($) Greater Than :
+			<input type="number" name="Median_Earnings" value="" min=0 max=1000000>
+			<br>
+			<p></p>
+
 			<input type="submit" value="Find Universities!">
 		</fieldset>
 		</form>

@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on Tue May 1 00:04:53 2018
+-- File generated with SQLiteStudio v3.1.1 on Tue May 1 16:01:34 2018
 --
 -- Text encoding used: System
 --
@@ -8,37 +8,39 @@ BEGIN TRANSACTION;
 
 -- Table: admissions
 DROP TABLE IF EXISTS admissions;
-CREATE TABLE admissions (University_ID STRING PRIMARY KEY, Name STRING UNIQUE, Acceptance_Rate NUMERIC, SAT_Lower_Range INTEGER, SAT_Upper_Range INTEGER, Yield_Rate NUMERIC);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA001', 'Harvard University', 0.05, 1430, 1600, 78.8);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 0.08, 1460, 1590, 73.5);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA003', 'Stanford University', 0.05, 1380, 1580, 82.1);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA004', 'Vanderbilt University', 0.11, 1420, 1590, 47.1);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA005', 'California Institute of Technology', 0.08, 1510, 1600, 44);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA006', 'Princeton University', 0.07, 1400, 1590, 68.3);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA007', 'Yale University', 0.06, 1420, 1600, 69);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA008', 'Columbia University', 0.07, 1410, 1590, 63.7);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA009', 'University of California, Berkeley', 0.17, 1270, 1540, 37);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA010', 'University of Chicago', 0.08, 1450, 1600, 72);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA011', 'Cornell University', 0.14, 1330, 1530, 52.3);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA012', 'University of Pennsylvania', 0.09, 1380, 1570, 67.8);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA013', 'Johns Hopkins University', 0.13, 1400, 1570, NULL);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA014', 'University of California, Los Angeles', 0.18, 1160, 1470, 35.2);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA015', 'University of California, San Diego', 0.36, 1170, 1460, 19.9);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA016', 'New York University', 0.32, 1250, 1480, 34);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA017', 'Dartmouth College', 0.11, 1350, 1560, 51.2);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA018', 'University of Wisconsin Madison', 0.53, 1200, 1420, 34.5);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 0.6, 1285, 1480, 38);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA020', 'Duke University', 0.11, 1380, 1570, 50.2);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA021', 'Northwestern University', 0.11, 1400, 1560, 53);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 0.29, 1310, 1500, 39);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 0.27, 1210, 1420, NULL);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA024', 'Washington University in St. Louis', 0.17, 1400, 1570, 31);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA025', 'University of Utah', 0.76, 1050, 1300, 47);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA026', 'University of Washington - Seattle', 0.45, 1120, 1370, NULL);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA027', 'University of California, Santa Barbara', 0.36, 1120, 1390, 19.7);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA028', 'Purdue University, West Lafayette', 0.56, 1070, 1320, 27.1);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA029', 'Carnegie Mellon University', 0.22, 1380, 1550, 29);
-INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA030', 'University of Southern California', 0.17, 1280, 1500, 33);
+CREATE TABLE admissions (University_ID STRING PRIMARY KEY, Name STRING, Acceptance_Rate NUMERIC, Average_SAT_Score INTEGER, Yield_Rate NUMERIC);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA001', 'Harvard University', 0.05, 1515, 78.8);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 0.08, 1525, 73.5);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA003', 'Stanford University', 0.05, 1480, 82.1);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA004', 'Vanderbilt University', 0.11, 1505, 47.1);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA005', 'California Institute of Technology', 0.08, 1555, 44);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA006', 'Princeton University', 0.07, 1495, 68.3);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA007', 'Yale University', 0.06, 1510, 69);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA008', 'Columbia University', 0.07, 1500, 63.7);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA009', 'University of California, Berkeley', 0.17, 1405, 37);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA010', 'University of Chicago', 0.08, 1525, 72);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA011', 'Cornell University', 0.14, 1430, 52.3);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA012', 'University of Pennsylvania', 0.09, 1475, 67.8);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA013', 'Johns Hopkins University', 0.13, 1485, NULL);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA014', 'University of California, Los Angeles', 0.18, 1315, 35.2);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA015', 'University of California, San Diego', 0.36, 1315, 19.9);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA016', 'New York University', 0.32, 1365, 34);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA017', 'Dartmouth College', 0.11, 1455, 51.2);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA018', 'University of Wisconsin Madison', 0.53, 1310, 34.5);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 0.6, 1382.5, 38);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA020', 'Duke University', 0.11, 1475, 50.2);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA021', 'Northwestern University', 0.11, 1480, 53);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 0.29, 1405, 39);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 0.27, 1315, NULL);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA024', 'Washington University in St. Louis', 0.17, 1485, 31);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA025', 'University of Utah', 0.76, 1175, 47);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA026', 'University of Washington - Seattle', 0.45, 1245, NULL);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA027', 'University of California, Santa Barbara', 0.36, 1255, 19.7);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA028', 'Purdue University, West Lafayette', 0.56, 1195, 27.1);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA029', 'Carnegie Mellon University', 0.22, 1465, 29);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('UIDA030', 'University of Southern California', 0.17, 1390, 33);
+INSERT INTO admissions (University_ID, Name, Acceptance_Rate, Average_SAT_Score, Yield_Rate) VALUES ('
+', NULL, NULL, NULL, NULL);
 
 -- Table: cost
 DROP TABLE IF EXISTS cost;
