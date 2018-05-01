@@ -1,0 +1,31 @@
+University_ID,Name,Tuition_Cost,Boarding_Cost,Book_Cost
+UIDA001,Harvard University,48949,16600,3500
+UIDA002,Massachusetts Institute of Technology,49892,14720,2000
+UIDA003,Stanford University,46320,14412,1425
+UIDA004,Vanderbilt University,42978,9208,1294
+UIDA005,California Institute of Technology,49908,14796,1323
+UIDA006,Princeton University,43450,16800,1050
+UIDA007,Yale University,47600,12288,3525
+UIDA008,Columbia University,57208,13618,1246
+UIDA009,"University of California, Berkeley",40200,16000,1262
+UIDA010,University of Chicago,54825,15726,1800
+UIDA011,Cornell University,49116,13678,890
+UIDA012,University of Pennsylvania,53534,15066,1250
+UIDA013,Johns Hopkins University,48710,9461,1210
+UIDA014,"University of California, Los Angeles",28014,14000,1500
+UIDA015,"University of California, San Diego",22878,13307,1198
+UIDA016,New York University,50464,17664,1225
+UIDA017,Dartmouth University,51438,14736,1260
+UIDA018,University of Wisconsin Madison,34783,10842,1200
+UIDA019,University of Illinois at Urbana Champaign,31988,11308,1200
+UIDA020,Duke University,49241,9432,1260
+UIDA021,Northwestern University,52678,16047,1669
+UIDA022,"University of Michigan, Ann Arbor",47476,11198,1048
+UIDA023,University of North Carolina at Chapel Hill,50990,10780,1200
+UIDA024,Washington University in St. Louis,48093,15280,977
+UIDA025,University of Utah,28067,9936,1232
+UIDA026,University of Washington - Seattle,35538,12117,825
+UIDA027,"University of California, Santa Barbara",42423,14015,2843
+UIDA028,"Purdue University, West Lafayette",28794,10030,1160
+UIDA029,Carnegie Mellon University,53910,13784,2400
+UIDA030,University of Southern California,51442,14348,1200
