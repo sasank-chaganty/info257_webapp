@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% set sitename = 'University' %}
+{% set sitename = "UniverCity" %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -7,6 +7,35 @@
         <title>{{ sitename }}</title>
     </head>
     <body>
-    	{{entries}}
+    	<form action="/results" method="POST">
+			<input type="text" class="form-control" name="search" placeholder="Enter University">
+				<select>
+					<option value="1">Select area</option>
+					<option value="2">Berkeley</option>
+					<option value="3">Cambridge</option>
+					<option value="4">Baltimore</option>
+					<option value="5">Stanford</option>
+					<option value="6">Ithaca</option>
+					<option value="7">New York</option>
+					<option value="8">Los Angeles</option>
+					<option value="9">Salt Lake City</option>
+					<option value="10">Madison</option>
+					<option value="11">Charlotte</option>
+					<option value="12">Princeton</option>
+					<option value="13">Durham</option>
+					<option value="14">Hanover</option>
+					<option value="15">New Haven</option>
+					<option value="16">Ann Arbor</option>
+					<option value="17">Pittsburgh</option>
+					<option value="18">Philadelphia</option>
+					<option value="19">West Lafayette</option>
+					<option value="20">Evanston</option>
+					<option value="21">Chicago</option>
+					<option value="22">St Louis</option>
+					<option value="23">Pasadena</option>
+					<option value="24">Santa Barbara</option>
+					<option value="25">Noakhali</option>
+				</select>
+			</form>
     </body>
 </html>

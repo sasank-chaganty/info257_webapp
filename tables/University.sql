@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on Mon Apr 30 16:59:20 2018
+-- File generated with SQLiteStudio v3.1.1 on Tue May 1 00:04:53 2018
 --
 -- Text encoding used: System
 --
@@ -7,6 +7,7 @@ PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
 
 -- Table: admissions
+DROP TABLE IF EXISTS admissions;
 CREATE TABLE admissions (University_ID STRING PRIMARY KEY, Name STRING UNIQUE, Acceptance_Rate NUMERIC, SAT_Lower_Range INTEGER, SAT_Upper_Range INTEGER, Yield_Rate NUMERIC);
 INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA001', 'Harvard University', 0.05, 1430, 1600, 78.8);
 INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 0.08, 1460, 1590, 73.5);
@@ -40,6 +41,7 @@ INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, S
 INSERT INTO admissions (University_ID, Name, Acceptance_Rate, SAT_Lower_Range, SAT_Upper_Range, Yield_Rate) VALUES ('UIDA030', 'University of Southern California', 0.17, 1280, 1500, 33);
 
 -- Table: cost
+DROP TABLE IF EXISTS cost;
 CREATE TABLE cost (University_ID STRING PRIMARY KEY, Name STRING, Tuition_Cost INTEGER, Boarding_Cost INTEGER, Book_Cost INTEGER);
 INSERT INTO cost (University_ID, Name, Tuition_Cost, Boarding_Cost, Book_Cost) VALUES ('UIDA001', 'Harvard University', 48949, 16600, 3500);
 INSERT INTO cost (University_ID, Name, Tuition_Cost, Boarding_Cost, Book_Cost) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 49892, 14720, 2000);
@@ -73,72 +75,75 @@ INSERT INTO cost (University_ID, Name, Tuition_Cost, Boarding_Cost, Book_Cost) V
 INSERT INTO cost (University_ID, Name, Tuition_Cost, Boarding_Cost, Book_Cost) VALUES ('UIDA030', 'University of Southern California', 51442, 14348, 1200);
 
 -- Table: employment
-CREATE TABLE employment (University_ID STRING PRIMARY KEY, Name STRING, "%_Employed" INTEGER, Median_Earnings INTEGER);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA001', 'Harvard University', 91, 69700);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 92, 79800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA003', 'Stanford University', 93, 71800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA004', 'Vanderbilt University', 93, 52000);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA005', 'California Institute of Technology', 89, 65100);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA006', 'Princeton University', 89, 58300);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA007', 'Yale University', 89, 58300);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA008', 'Columbia University', 88, 65100);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA009', 'University of California, Berkeley', 87, 46000);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA010', 'University of Chicago', 91, 54600);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA011', 'Cornell University', 93, 60000);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA012', 'University of Pennsylvania', 91, 67500);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA013', 'Johns Hopkins University', 91, 62700);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA014', 'University of California, Los Angeles', 88, 41900);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA015', 'University of California, San Diego', 88, 39600);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA016', 'New York University', 91, 46800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA017', 'Dartmouth University', 92, 54700);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA018', 'University of Wisconsin Madison', 95, 42300);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 94, 44200);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA020', 'Duke University', 94, 68800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA021', 'Northwestern University', 93, 57300);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 93, 49600);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 93, 39700);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA024', 'Washington University in St. Louis', 93, 53800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA025', 'University of Utah', 89, 39300);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA026', 'University of Washington - Seattle', 90, 42800);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA027', 'University of California, Santa Barbara', 90, 36000);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA028', 'Purdue University, West Lafayette', 94, 43000);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA029', 'Carnegie Mellon University', 91, 67200);
-INSERT INTO employment (University_ID, Name, "%_Employed", Median_Earnings) VALUES ('UIDA030', 'University of Southern California', 93, 52800);
+DROP TABLE IF EXISTS employment;
+CREATE TABLE employment (University_ID STRING PRIMARY KEY, Name STRING, Percent_Employed INTEGER, Median_Earnings INTEGER);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA001', 'Harvard University', 91, 69700);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 92, 79800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA003', 'Stanford University', 93, 71800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA004', 'Vanderbilt University', 93, 52000);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA005', 'California Institute of Technology', 89, 65100);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA006', 'Princeton University', 89, 58300);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA007', 'Yale University', 89, 58300);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA008', 'Columbia University', 88, 65100);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA009', 'University of California, Berkeley', 87, 46000);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA010', 'University of Chicago', 91, 54600);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA011', 'Cornell University', 93, 60000);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA012', 'University of Pennsylvania', 91, 67500);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA013', 'Johns Hopkins University', 91, 62700);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA014', 'University of California, Los Angeles', 88, 41900);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA015', 'University of California, San Diego', 88, 39600);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA016', 'New York University', 91, 46800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA017', 'Dartmouth University', 92, 54700);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA018', 'University of Wisconsin Madison', 95, 42300);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 94, 44200);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA020', 'Duke University', 94, 68800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA021', 'Northwestern University', 93, 57300);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 93, 49600);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 93, 39700);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA024', 'Washington University in St. Louis', 93, 53800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA025', 'University of Utah', 89, 39300);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA026', 'University of Washington - Seattle', 90, 42800);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA027', 'University of California, Santa Barbara', 90, 36000);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA028', 'Purdue University, West Lafayette', 94, 43000);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA029', 'Carnegie Mellon University', 91, 67200);
+INSERT INTO employment (University_ID, Name, Percent_Employed, Median_Earnings) VALUES ('UIDA030', 'University of Southern California', 93, 52800);
 
 -- Table: location
-CREATE TABLE location (University_ID STRING PRIMARY KEY, Name STRING, Region_ID STRING, Region_Name STRING, City STRING, State STRING, "Weather(September)" INTEGER, "Weather(March)" INTEGER);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA001', 'Harvard University', 4, 'Northeast', 'Cambridge', 'MA', 74, 47);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA002', 'Massachusetts Institute of Technology', 4, 'Northeast', 'Cambridge', 'MA', 74, 47);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA003', 'Stanford University', 1, 'West', 'Stanford', 'CA', 78, 65);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA004', 'Vanderbilt University', 3, 'South', 'Nashville', 'TN', 83, 62);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA005', 'California Institute of Technology', 1, 'West', 'Pasadena', 'CA', 89, 72);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA006', 'Princeton University', 4, 'Northeast', 'Princeton', 'NJ', 77, 51);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA007', 'Yale University', 4, 'Northeast', 'New Haven', 'CT', 75, 49);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA008', 'Columbia University', 4, 'Northeast', 'New York', 'NY', 76, 50);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA009', 'University of California, Berkeley', 1, 'West', 'Berkeley', 'CA', 74, 63);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA010', 'University of Chicago', 2, 'Midwest', 'Chicago', 'IL', 74, 45);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA011', 'Cornell University', 4, 'Northeast', 'Ithaca', 'NY', 74, 45);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA012', 'University of Pennsylvania', 4, 'Northeast', 'Philadelphia', 'PA', 80, 53);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA013', 'Johns Hopkins University', 3, 'South', 'Baltimore', 'MD', 80, 55);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA014', 'University of California, Los Angeles', 1, 'West', 'Los Angeles', 'CA', 83, 70);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA015', 'University of California, San Diego', 1, 'West', 'San Diego', 'CA', 77, 67);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA016', 'New York University', 4, 'Northeast', 'New York City', 'NY', 76, 50);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA017', 'Dartmouth University', 4, 'Northeast', 'Hanover', 'NH', 72, 43);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA018', 'University of Wisconsin Madison', 4, 'Northeast', 'Madison', 'WI', 74, 44);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 2, 'Midwest', 'Champaign', 'IL', 78, 50);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA020', 'Duke University', 3, 'South', 'Durham', 'NC', 82, 62);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA021', 'Northwestern University', 2, 'Midwest', 'Evanston', 'IL', 74, 46);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 2, 'Midwest', 'Ann Arbor', 'MI', 75, 46);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 3, 'South', 'Chapel Hill', 'NC', 82, 63);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA024', 'Washington University in St. Louis', 2, 'Midwest', 'St. Louis', 'MO', 81, 56);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA025', 'University of Utah', 1, 'West', 'Salt Lake City', 'UT', 79, 56);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA026', 'University of Washington - Seattle', 1, 'West', 'Seattle', 'WA', 69, 55);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA027', 'University of California, Santa Barbara', 1, 'West', 'Santa Barbara', 'CA', 76, 67);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA028', 'Purdue University, West Lafayette', 2, 'Midwest', 'West Lafayette', 'IN', 78, 50);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA029', 'Carnegie Mellon University', 4, 'Northeast', 'Pittsburgh', 'PA', 76, 50);
-INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, "Weather(September)", "Weather(March)") VALUES ('UIDA030', 'University of Southern California', 1, 'West', 'Los Angeles', 'CA', 83, 70);
+DROP TABLE IF EXISTS location;
+CREATE TABLE location (University_ID STRING PRIMARY KEY, Name STRING, Region_ID STRING, Region_Name STRING, City STRING, State STRING, Fall_Weather INTEGER, Spring_Weather INTEGER);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA001', 'Harvard University', 4, 'Northeast', 'Cambridge', 'MA', 74, 47);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 4, 'Northeast', 'Cambridge', 'MA', 74, 47);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA003', 'Stanford University', 1, 'West', 'Stanford', 'CA', 78, 65);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA004', 'Vanderbilt University', 3, 'South', 'Nashville', 'TN', 83, 62);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA005', 'California Institute of Technology', 1, 'West', 'Pasadena', 'CA', 89, 72);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA006', 'Princeton University', 4, 'Northeast', 'Princeton', 'NJ', 77, 51);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA007', 'Yale University', 4, 'Northeast', 'New Haven', 'CT', 75, 49);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA008', 'Columbia University', 4, 'Northeast', 'New York', 'NY', 76, 50);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA009', 'University of California, Berkeley', 1, 'West', 'Berkeley', 'CA', 74, 63);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA010', 'University of Chicago', 2, 'Midwest', 'Chicago', 'IL', 74, 45);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA011', 'Cornell University', 4, 'Northeast', 'Ithaca', 'NY', 74, 45);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA012', 'University of Pennsylvania', 4, 'Northeast', 'Philadelphia', 'PA', 80, 53);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA013', 'Johns Hopkins University', 3, 'South', 'Baltimore', 'MD', 80, 55);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA014', 'University of California, Los Angeles', 1, 'West', 'Los Angeles', 'CA', 83, 70);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA015', 'University of California, San Diego', 1, 'West', 'San Diego', 'CA', 77, 67);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA016', 'New York University', 4, 'Northeast', 'New York City', 'NY', 76, 50);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA017', 'Dartmouth University', 4, 'Northeast', 'Hanover', 'NH', 72, 43);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA018', 'University of Wisconsin Madison', 4, 'Northeast', 'Madison', 'WI', 74, 44);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA019', 'University of Illinois at Urbana Champaign', 2, 'Midwest', 'Champaign', 'IL', 78, 50);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA020', 'Duke University', 3, 'South', 'Durham', 'NC', 82, 62);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA021', 'Northwestern University', 2, 'Midwest', 'Evanston', 'IL', 74, 46);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA022', 'University of Michigan, Ann Arbor', 2, 'Midwest', 'Ann Arbor', 'MI', 75, 46);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA023', 'University of North Carolina at Chapel Hill', 3, 'South', 'Chapel Hill', 'NC', 82, 63);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA024', 'Washington University in St. Louis', 2, 'Midwest', 'St. Louis', 'MO', 81, 56);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA025', 'University of Utah', 1, 'West', 'Salt Lake City', 'UT', 79, 56);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA026', 'University of Washington - Seattle', 1, 'West', 'Seattle', 'WA', 69, 55);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA027', 'University of California, Santa Barbara', 1, 'West', 'Santa Barbara', 'CA', 76, 67);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA028', 'Purdue University, West Lafayette', 2, 'Midwest', 'West Lafayette', 'IN', 78, 50);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA029', 'Carnegie Mellon University', 4, 'Northeast', 'Pittsburgh', 'PA', 76, 50);
+INSERT INTO location (University_ID, Name, Region_ID, Region_Name, City, State, Fall_Weather, Spring_Weather) VALUES ('UIDA030', 'University of Southern California', 1, 'West', 'Los Angeles', 'CA', 83, 70);
 
 -- Table: university
+DROP TABLE IF EXISTS university;
 CREATE TABLE university (University_ID STRING PRIMARY KEY, Name STRING, Region_ID STRING, City STRING, Student_Population INTEGER, Safety_Score STRING, Size INTEGER);
 INSERT INTO university (University_ID, Name, Region_ID, City, Student_Population, Safety_Score, Size) VALUES ('UIDA001', 'Harvard University', 4, 'Cambridge', 20324, 'B', 5076);
 INSERT INTO university (University_ID, Name, Region_ID, City, Student_Population, Safety_Score, Size) VALUES ('UIDA002', 'Massachusetts Institute of Technology', 4, 'Cambridge', 11376, 'B', 168);

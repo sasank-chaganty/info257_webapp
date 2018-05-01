@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% set sitename = "UniverCity" %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ sitename }}</title>
+    </head>
+    <body>
+    	<h2> {{college}} </h2>
+    	{% for column in columns %}
+    		<b>{{ column }}:</b>
+    		<p>{{ row[column] }}</p>
+    	{% endfor %}
+    </body>
+</html>

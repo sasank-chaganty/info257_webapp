@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% set sitename = "UniverCity" %}
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ sitename }}</title>
+    </head>
+    <body>
+        {% if empty %}
+        <p> Your search did not return any results. </p>
+        <form action="/" method="GET">
+            <button type="submit">New Search</button>
+        </form>
+        {% else %}
+            <h2>Results</h2>
+            <table>
+                <tr>
+                    {% for column in columns %}
+                    <th>{{column}}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in rows %}
+                <tr>
+                    {% for column in columns %}
+                    <td> {{row[column]}} </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </body>
+</html>
+ 

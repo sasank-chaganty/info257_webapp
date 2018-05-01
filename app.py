@@ -7,6 +7,19 @@ app = Flask(__name__)
 DATABASE_FILE = "tables/database.db"
 conn = sqlite3.connect(DATABASE_FILE)
 
+all_college_columns = ["Name", "City", "State", "Student_Population", "Safety_Score", 
+"Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
+"Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "SAT_Lower_Range", 
+"SAT_Upper_Range", "Yield_Rate"]
+
+university_columns = ["Name", "Region_ID", "City", "State", "Student_Population", "Safety_Score", "Size"]
+employment_columns = ["Name", "Percent_Employed", "Median_Earnings"]
+cost_columns = ["Name", "Tuition_Cost", "Boarding_Cost", "Book_Cost"]
+admissions_columns = ["Name", "Acceptance_Rate", "SAT_Lower_Range", "SAT_Upper_Range", "Yield_Rate"]
+location_columns = ["Name", "Region_ID", "Region_Name", "City", "State", "Fall_Weather", "Spring_Weather"]
+
+conn.row_factory = sqlite3.Row
+
 def query_logger(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -32,24 +45,45 @@ def fetchall(query):
     with conn:
         return conn.execute(query).fetchall()
 
-@app.route("/", methods=["GET, POST"])
-def hello():
-    if request.method == 'GET':
-        query = "SELECT * FROM university;"
-        entries = fetchall(query)
+@app.route("/", methods=["GET", "POST"])
+def main_page():
+    return render_template("index.html")
 
-        return render_template("index.html", entries=entries)
+@app.route("/results", methods = ["GET", "POST"])
+def results():
+    #if request.method == "GET":
+    #    return render_template("index.html")
 
-    return render_template("index.html", entries = entries)
+    #query = "SELECT * FROM university;"
+    query = "SELECT Percent_Employed FROM employment;"
+    entries = fetchall(query)
+    if entries:
+        is_empty = False
+    else:
+        is_empty = True
 
-@app.route("/explore")
-def explore():
+    return render_template("results.html", columns = employment_columns, rows = entries, empty = is_empty)
 
-    return render_template("search.html", entries=entries)
+@app.route('/university/<college>')
+def view_college(college):
+    all_college_columns = ["u.Name", "u.City", "u.Student_Population", "u.Safety_Score", 
+    "u.Size", "l.State","l.Region_Name", "l.Fall_Weather", "l.Spring_Weather", "e.Percent_Employed", "e.Median_Earnings",
+    "c.Tuition_Cost", "c.Boarding_Cost", "c.Book_Cost", "a.Acceptance_Rate", "a.SAT_Lower_Range", 
+    "a.SAT_Upper_Range", "a.Yield_Rate"]
 
-@app.route("/members/<string:name>/")
-def getMember(name):
-    return name
+    ac = ["Name", "City", "Student_Population", "Safety_Score", "Size", "State","Region_Name", "Fall_Weather", 
+    "Spring_Weather", "Percent_Employed", "Median_Earnings", "Tuition_Cost", "Boarding_Cost", 
+    "Book_Cost", "Acceptance_Rate", "SAT_Lower_Range", "SAT_Upper_Range", "Yield_Rate"]
+
+    selection_columns = ', '.join(all_college_columns)
+    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+    "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+    "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
+
+    entry = fetchone(query)
+    return render_template("college.html", university = college, columns = ac, row = entry)
+
+
 
 
 if __name__ == "__main__":
