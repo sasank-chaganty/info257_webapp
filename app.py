@@ -3,7 +3,8 @@ app = Flask(__name__)
  
 @app.route("/")
 def index():
-    return "Index!"
+	entries = database.execute()
+	render_template("index.html", entries=entries)
  
 @app.route("/hello")
 def hello():
