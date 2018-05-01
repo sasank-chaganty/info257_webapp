@@ -1,41 +1,51 @@
 <!DOCTYPE html>
-{% set sitename = "UniverCity" %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ sitename }}</title>
+        <title>UniverCity</title>
     </head>
     <body>
-    	<form action="/results" method="POST">
-			<input type="text" class="form-control" name="search" placeholder="Enter University">
-				<select>
-					<option value="1">Select area</option>
-					<option value="2">Berkeley</option>
-					<option value="3">Cambridge</option>
-					<option value="4">Baltimore</option>
-					<option value="5">Stanford</option>
-					<option value="6">Ithaca</option>
-					<option value="7">New York</option>
-					<option value="8">Los Angeles</option>
-					<option value="9">Salt Lake City</option>
-					<option value="10">Madison</option>
-					<option value="11">Charlotte</option>
-					<option value="12">Princeton</option>
-					<option value="13">Durham</option>
-					<option value="14">Hanover</option>
-					<option value="15">New Haven</option>
-					<option value="16">Ann Arbor</option>
-					<option value="17">Pittsburgh</option>
-					<option value="18">Philadelphia</option>
-					<option value="19">West Lafayette</option>
-					<option value="20">Evanston</option>
-					<option value="21">Chicago</option>
-					<option value="22">St Louis</option>
-					<option value="23">Pasadena</option>
-					<option value="24">Santa Barbara</option>
-					<option value="25">Noakhali</option>
-				</select>
-			</form>
+    	<fieldset>
+    	<legend>View University Info:</legend>
+    	<form action="/university" method="POST">
+			<select name="university">
+				{% for university in uni_list %}
+				<option value="{{university}}"> {{ university }}</option>
+				{% endfor%}
+			</select>
+			<input type="submit" value="Get University Info">
+		</form>
+		</fieldset>
+
+		<fieldset>
+		<legend>Search For University:</legend>
+		<form action="/results" method="POST">
+			<select name="City">
+				{% for city in city_list %}
+				<option value={{ city }}> {{ city }}</option>
+				{% endfor%} 
+			</select>
+
+			<select name="State">
+				{% for state in state_list %}
+				<option value={{ state }}> {{ state }}</option>
+				{% endfor%}
+			</select>
+
+			<select name="Region">
+				{% for region in region_list %}
+				<option value={{ region }}> {{ region }}</option>
+				{% endfor%} 
+			</select>
+
+			<select name="Safety Score">
+				{% for score in scores %}
+				<option value={{ score }}> {{ score }}</option>
+				{% endfor%} 
+			</select>
+			<input type="submit" value="Find Universities!">
+		</fieldset>
+		</form>
     </body>
 </html>

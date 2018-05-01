@@ -45,27 +45,45 @@ def fetchall(query):
     with conn:
         return conn.execute(query).fetchall()
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def main_page():
-    return render_template("index.html")
+    uni_rows = fetchall("SELECT Name FROM university ORDER BY Name ASC;")
+    uni_list = [uni["Name"] for uni in uni_rows]
+
+    city_rows = fetchall("SELECT DISTINCT City FROM university ORDER BY City ASC;")
+    city_list = [city["City"] for city in city_rows]
+
+    state_rows = fetchall("SELECT DISTINCT State FROM location ORDER BY State ASC;")
+    state_list = [state["State"] for state in state_rows]
+
+    region_rows = fetchall("SELECT DISTINCT Region_Name FROM location ORDER BY Region_Name ASC;")
+    region_list = [region["Region_Name"] for region in region_rows]
+
+    score_rows = fetchall("SELECT DISTINCT Safety_Score FROM university ORDER BY Safety_Score ASC; ")
+    scores = [score["Safety_Score"] for score in score_rows]
+
+    return render_template("index.html", uni_list = uni_list, city_list = city_list, 
+        state_list= state_list, region_list=region_list, scores=scores)
 
 @app.route("/results", methods = ["GET", "POST"])
 def results():
-    #if request.method == "GET":
-    #    return render_template("index.html")
+    if request.method == "GET":
+        return render_template("index.html")
 
-    #query = "SELECT * FROM university;"
-    query = "SELECT Percent_Employed FROM employment;"
+    query = "SELECT * FROM university;"
+    #query = "SELECT Percent_Employed FROM employment;"
     entries = fetchall(query)
     if entries:
         is_empty = False
     else:
         is_empty = True
 
-    return render_template("results.html", columns = employment_columns, rows = entries, empty = is_empty)
+    return render_template("results.html", columns = university_columns, rows = entries, empty = is_empty)
 
-@app.route('/university/<college>')
-def view_college(college):
+@app.route('/university', methods = ["POST"])
+def view_college():
+    college = request.form["university"]
+    print(college)
     all_college_columns = ["u.Name", "u.City", "u.Student_Population", "u.Safety_Score", 
     "u.Size", "l.State","l.Region_Name", "l.Fall_Weather", "l.Spring_Weather", "e.Percent_Employed", "e.Median_Earnings",
     "c.Tuition_Cost", "c.Boarding_Cost", "c.Book_Cost", "a.Acceptance_Rate", "a.SAT_Lower_Range", 
@@ -82,9 +100,6 @@ def view_college(college):
 
     entry = fetchone(query)
     return render_template("college.html", university = college, columns = ac, row = entry)
-
-
-
 
 if __name__ == "__main__":
     app.run()
