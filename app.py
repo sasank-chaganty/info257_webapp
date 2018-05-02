@@ -7,6 +7,12 @@ app = Flask(__name__)
 DATABASE_FILE = "tables/database.db"
 conn = sqlite3.connect(DATABASE_FILE)
 
+university_columns = ["Name", "Region_ID", "City", "Student_Population", "Safety_Score", "Size"]
+employment_columns = ["Name", "Percent_Employed", "Median_Earnings"]
+cost_columns = ["Name", "Tuition_Cost", "Boarding_Cost", "Book_Cost"]
+admissions_columns = ["Name", "Acceptance_Rate", "Average_SAT_Score", "Yield_Rate"]
+location_columns = ["Name", "Region_ID", "Region_Name", "City", "State", "Fall_Weather", "Spring_Weather"]
+
 all_college_columns = ["Name", "City", "State", "Student_Population", "Safety_Score", 
 "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
 "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score", "Yield_Rate"]
@@ -20,12 +26,6 @@ table_aliases = {"university": "university as u", "employment": "employment as e
 
 joins_to_university = {"location": "u.University_ID = l.University_ID", "admissions": "u.University_ID = a.University_ID",
 "cost": "u.University_ID = c.University_ID", "employment": "u.University_ID = e.University_ID"}
-
-university_columns = ["Name", "Region_ID", "City", "Student_Population", "Safety_Score", "Size"]
-employment_columns = ["Name", "Percent_Employed", "Median_Earnings"]
-cost_columns = ["Name", "Tuition_Cost", "Boarding_Cost", "Book_Cost"]
-admissions_columns = ["Name", "Acceptance_Rate", "SAT_Lower_Range", "SAT_Upper_Range", "Yield_Rate"]
-location_columns = ["Name", "Region_ID", "Region_Name", "City", "State", "Fall_Weather", "Spring_Weather"]
 
 conn.row_factory = sqlite3.Row
 
@@ -79,86 +79,110 @@ def results():
     if request.method == "GET":
         return redirect(url_for('main_page'))
 
-    query, selected_columns = build_query_plan()
-    entries = fetchall(query)
-    is_empty = entries == None:
+    selection_columns = ', '.join(col_aliases)
+    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
+   
+    form_fields = ["City", "State", "Student_Population", "Safety_Score", 
+    "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
+    "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score"]
+    
+    conditions = []
+    for item in form_fields:
+        if request.form[item]:
+            conditions.append(condition_lookup(item))
 
-    return render_template("results.html", columns = selected_columns, rows = entries, empty = is_empty)
+    if conditions:
+        conditions = 'AND '.join(conditions)
+        query = query + " AND " + conditions + ";"
+
+    entries = fetchall(query)
+    print(entries)
+    if entries:
+    	is_empty = False
+    else:
+    	is_empty = True
+
+    return render_template("results.html", columns = all_college_columns, rows = entries, empty = is_empty)
 
 @app.route('/university', methods = ["GET", "POST"])
 def view_college():
     if request.method == "GET":
         return redirect(url_for('main_page'))
 
-    response = request.form["university"]
-    if response == "All Universities":
-        query = get_master_query()
-        entity = "All Universities" 
-    else:
-        query = get_master_query(response)
-        entity = response
+    college = request.form["university"]
+    selection_columns = ', '.join(col_aliases)
+    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+        "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+        "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
 
-    entry = fetchone(query)
-    return render_template("college.html", university = entity, columns = all_college_columns, row = entry)
-
-
-def get_master_query(college=None):
-    if not college:
-        selection_columns = ', '.join(aliases)
-        query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
-            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
-            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
-    else:
-        selection_columns = ', '.join(aliases)
-        query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
-            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
-            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
-
-        return query, all_college_columns
+    data = fetchone(query)
+    return render_template("college.html", university = college, columns = all_college_columns, row = data)
 
 
 def build_query_plan():
-    selected_columns = []
-    query_columns = []
-    tables_involved = set()
-    form_fields = ["Name", "City", "State", "Student_Population", "Safety_Score", 
+    selection_columns = ', '.join(col_aliases)
+    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
+   
+    form_fields = ["City", "State", "Student_Population", "Safety_Score", 
     "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
     "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score"]
+    
+    conditions = []
+    print("Got Here")
     for item in form_fields:
         if request.form[item]:
-            selection_columns.append(item)
-            new_table, query_col = find_table(item)
-            tables_involved.add(new_table)
-            query_columns.append(query_col)
+            conditions.append(condition_lookup(item))
 
-    query_columns = ', '.join(query_columns)
-    
-    query_table_aliases = [table_aliases[table] for table in tables_involved]
-    query_table_aliases = ', '.join(query_table_aliases)
+    print("Got Here")
+    print(query)
+    if not conditions:
+        return query
+    else:
+        conditions = ' AND '.join(conditions)
 
-    joins = [joins_to_university[table] for table in tables_involved]
-    joins = ' AND '.join(joins)
+    query = query + " AND " + conditions + ";"
+    return query
 
-    conditions = [condition_lookup(cond) for  ]
-    mastery_query = "SELECT " + query_columns + " FROM " + table_aliases + " WHERE " + joins + "AND " + conditions + ";"
-
-    return mastery_query, selected_columns
-
-
-def find_table(item):
+def find_alias(item):
     if item in university_columns:
-        return "university", "u." + item
+        return "u." + item
     elif item in employment_columns:
-        return "employment", "e." + item
+        return "e." + item
     elif item in cost_columns:
-        return "cost", "c." + item
+        return "c." + item
     elif item in admissions_columns:
-        return "admissions", "a." + item
+        return "a." + item
     elif item in location_columns:
-        return "location", "l." + item
+        return "l." + item
     else:
         raise Exception()
 
+def condition_lookup(item):
+    greater_than = ["Percent_Employed", "Median_Earnings", "Acceptance_Rate", "Spring_Weather", "Size"]
+    less_than = ["Safety_Score", "Fall_Weather", "Student_Population", "Average_SAT_Score", "Tuition_Cost",
+    "Boarding_Cost", "Book_Cost"]
+    equal_to = ["Name", "City", "State", "Region_Name"]
+
+    if item in greater_than:
+        cond = find_alias(item) + " > " + convert(request.form[item])
+    elif item in equal_to:
+        cond = find_alias(item) + " = " + convert(request.form[item])
+    elif item in less_than:
+        cond = find_alias(item) + " < " + convert(request.form[item])
+    else:
+        raise Exception()
+
+    return cond
+
+def convert(item):
+    if type(item) == str:
+        return "'{}'".format(item)
+    else:
+    	return str(item) 
 
 if __name__ == "__main__":
     app.run()

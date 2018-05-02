@@ -10,6 +10,7 @@
     	<legend>View University Info</legend>
     	<form action="/university" method="POST">
 			<select name="university">
+				<option value="All Universities">All 30 Universities</option>
 				{% for university in uni_list %}
 				<option value="{{university}}"> {{ university }}</option>
 				{% endfor%}
@@ -80,7 +81,7 @@
 			<p></p>
 
 			Combined SAT Score Less Than :
-			<input type="number" name="Average_SAT_score" value="" min=0 max=1600>
+			<input type="number" name="Average_SAT_Score" value="" min=0 max=1600>
 			<br>
 			<p></p>
 
@@ -115,7 +116,7 @@
 			<p></p>
 
 			<input type="submit" value="Find Universities!">
-		</fieldset>
 		</form>
+		</fieldset>
     </body>
 </html>
