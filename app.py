@@ -112,14 +112,27 @@ def view_college():
         return redirect(url_for('main_page'))
 
     college = request.form["university"]
-    selection_columns = ', '.join(col_aliases)
-    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+
+    if college == "All Universities":
+    	selection_columns = ', '.join(col_aliases)
+    	query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
+    	entries = fetchall(query)
+    	print(entries)
+    	if entries:
+    		is_empty = False
+    	else:
+    		is_empty = True
+    	return render_template("results.html", columns = all_college_columns, rows = entries, empty = is_empty)
+    else:
+    	selection_columns = ', '.join(col_aliases)
+    	query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
         "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
         "u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(college)
 
-    data = fetchone(query)
-    return render_template("college.html", university = college, columns = all_college_columns, row = data)
-
+    	data = fetchone(query)
+    	return render_template("college.html", university = college, columns = all_college_columns, row = data)
 
 def build_query_plan():
     selection_columns = ', '.join(col_aliases)
