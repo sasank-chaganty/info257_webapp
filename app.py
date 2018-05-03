@@ -79,6 +79,21 @@ def results():
     if request.method == "GET":
         return redirect(url_for('main_page'))
 
+    try:
+    	if request.form["multiple_unis"]:
+    		uni_rows = []
+    		for uni in request.form.getlist("multiple_unis"):
+    			selection_columns = ', '.join(col_aliases)
+    			query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+        			"employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+        			"u.University_ID = l.University_ID AND u.University_ID = e.University_ID AND u.Name ='{}';").format(uni)
+    			row = fetchone(query)
+    			uni_rows.append(row)
+
+    		return render_template("results.html", columns = all_college_columns, rows = uni_rows, empty = False)
+    except KeyError:
+    	pass
+
     selection_columns = ', '.join(col_aliases)
     query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
             "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
@@ -98,7 +113,6 @@ def results():
         query = query + " AND " + conditions + ";"
 
     entries = fetchall(query)
-    print(entries)
     if entries:
     	is_empty = False
     else:

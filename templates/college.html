@@ -1,11 +1,66 @@
 <!DOCTYPE html>
 {% set sitename = "UniverCity" %}
 <html lang="en">
+<style>
+body{    
+    font-family: sans-serif;
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    transition: all 725ms ease-in-out;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid navy;
+    background-color: dodgerblue;
+    color: white;
+
+}
+
+select, option{
+cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid navy;
+    background-color: black;
+    color: white;
+}
+
+input{
+    cursor: pointer;
+    appearance: none;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid navy;
+    background-color: black;
+    color: white;
+}
+
+
+legend {
+    color: darkblue;
+    font-weight: bold;
+    }
+h2{
+    color:white;
+    background-color: black;
+}
+</style>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="icon" href="static/logo.ico" type="image/x-icon">
+
         <title>{{ sitename }}</title>
     </head>
+        <br><br>
+
     <body>
     	<h2> {{ university }} </h2>
     	{% for column in columns %}

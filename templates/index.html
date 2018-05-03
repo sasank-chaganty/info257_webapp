@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+body{    
+	font-family: sans-serif;
+	text-align: center;
+	padding: 3rem;
+	font-size: 1.125rem;
+	line-height: 1.5;
+	transition: all 725ms ease-in-out;
+	background-image: url("static/home.png");
+	background-repeat: no-repeat, repeat;
+    background-size: 2200px 1320px;
+    font-weight: bold;
+
+}
+
+select, option{
+cursor: pointer;
+	appearance: none;
+	border-radius: 4px;
+	font-size: 1.25rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid navy;
+	background-color: dodgerblue;
+	color: white;
+}
+
+input{
+	cursor: pointer;
+	appearance: none;
+	border-radius: 4px;
+	font-size: 1.25rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid navy;
+	background-color: dodgerblue;
+	color: white;
+}
+
+
+legend {
+    color: darkblue;
+    font-weight: bold;
+    }
+</style>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link rel="icon" href="static/logo.ico" type="image/x-icon">
+
         <title>UniverCity</title>
     </head>
     <body>
+        <center><img src="static/logo.png" alt="" title="" height="120px" width="250px" /></center>
+
     	<fieldset>
     	<legend>View University Info</legend>
     	<form action="/university" method="POST">
@@ -86,7 +133,7 @@
 			<p></p>
 
 			Acceptance Rate (%) Greater Than :
-			<input type="number" name="Acceptance_Rate" value="" min=0 max=100>
+			<input type="number" name="Acceptance_Rate" value="" min=0 max=1 step=0.01>
 			<br>
 			<p></p>
 
@@ -118,5 +165,20 @@
 			<input type="submit" value="Find Universities!">
 		</form>
 		</fieldset>
+
+		<fieldset>
+			<legend>Compare Multiple Universities</legend>
+			<form action="/results" method="POST">
+  			<select name="multiple_unis" multiple>
+  				{% for university in uni_list %}
+				<option value="{{university}}"> {{ university }}</option>
+				{% endfor%}
+  			</select>
+  			<br><br>
+  			<input type="submit" value="Compare">
+		</form>
+		<p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+		</fieldset>
+		
     </body>
 </html>
