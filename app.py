@@ -133,7 +133,7 @@ def view_college():
             "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
             "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
     	entries = fetchall(query)
-    	print(entries)
+
     	if entries:
     		is_empty = False
     	else:
@@ -148,31 +148,31 @@ def view_college():
     	data = fetchone(query)
     	return render_template("college.html", university = college, columns = all_college_columns, row = data)
 
-def build_query_plan():
-    selection_columns = ', '.join(col_aliases)
-    query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
-            "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
-            "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
+# def build_query_plan():
+#     selection_columns = ', '.join(col_aliases)
+#     query = ("SELECT " + selection_columns + " FROM university as u, admissions as a, cost as c, location as l, "
+#             "employment as e WHERE u.University_ID = a.University_ID AND u.University_ID = c.University_ID AND "
+#             "u.University_ID = l.University_ID AND u.University_ID = e.University_ID")
    
-    form_fields = ["City", "State", "Student_Population", "Safety_Score", 
-    "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
-    "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score"]
+#     form_fields = ["City", "State", "Student_Population", "Safety_Score", 
+#     "Size", "Region_Name", "Fall_Weather", "Spring_Weather", "Percent_Employed", "Median_Earnings",
+#     "Tuition_Cost", "Boarding_Cost", "Book_Cost", "Acceptance_Rate", "Average_SAT_Score"]
     
-    conditions = []
-    print("Got Here")
-    for item in form_fields:
-        if request.form[item]:
-            conditions.append(condition_lookup(item))
+#     conditions = []
+#     print("Got Here")
+#     for item in form_fields:
+#         if request.form[item]:
+#             conditions.append(condition_lookup(item))
 
-    print("Got Here")
-    print(query)
-    if not conditions:
-        return query
-    else:
-        conditions = ' AND '.join(conditions)
+#     print("Got Here")
+#     print(query)
+#     if not conditions:
+#         return query
+#     else:
+#         conditions = ' AND '.join(conditions)
 
-    query = query + " AND " + conditions + ";"
-    return query
+#     query = query + " AND " + conditions + ";"
+#     return query
 
 def find_alias(item):
     if item in university_columns:
